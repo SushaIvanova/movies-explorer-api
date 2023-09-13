@@ -16,10 +16,10 @@ module.exports.getUserInfo = (req, res, next) => {
 };
 
 module.exports.editProfile = (req, res, next) => {
-  const { name, about } = req.body;
+  const { name, email } = req.body;
   return UserModel.findByIdAndUpdate(
     req.user._id,
-    { name, about },
+    { name, email },
     {
       new: true,
       runValidators: true,
@@ -34,6 +34,8 @@ module.exports.editProfile = (req, res, next) => {
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
         next(new BadRequestError('Некорректный формат данных'));
+      } else if (error.code === 11000) {
+        next(new ConflictError('Такой пользователь уже существует'));
       } else {
         next(error);
       }

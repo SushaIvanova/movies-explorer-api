@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cors = require('cors');
 const { errors } = require('celebrate');
-const NotFoundError = require('./errors/NotFoundError');
+// const NotFoundError = require('./errors/NotFoundError');
 const errorHandler = require('./middlewares/errorHandler');
 const limiter = require('./middlewares/limiter');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -31,10 +31,6 @@ app.use(requestLogger);
 app.use(limiter);
 
 app.use(router);
-
-app.use('*', (req, res, next) => {
-  next(new NotFoundError('Страница не найдена'));
-});
 
 app.use(errorLogger);
 
