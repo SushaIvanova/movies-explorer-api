@@ -3,7 +3,7 @@ const { default: mongoose } = require('mongoose');
 const movieSchema = new mongoose.Schema({
   country: {
     type: String,
-    required: true,
+    // required: true,
   },
   director: {
     type: String,
@@ -62,6 +62,10 @@ const movieSchema = new mongoose.Schema({
   },
   nameEN: {
     type: String,
+    required: true,
+  },
+  movieId: {
+    type: Number,
     required: true,
   },
 });
